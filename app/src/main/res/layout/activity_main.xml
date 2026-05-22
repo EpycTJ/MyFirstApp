@@ -5,26 +5,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/comet_primary"
+    android:background="@color/bg_light"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:elevation="0dp">
+        android:background="@color/bg_light"
+        android:elevation="0dp"
+        app:elevation="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:subtitle="Daily mission brief"
-            app:subtitleTextColor="#99FFFFFF"
-            app:title="Comet News"
-            app:titleTextColor="@color/white" />
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="12dp"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <!-- Custom Header Content replacing standard toolbar for the new look -->
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="6dp"
+                android:src="?attr/homeAsUpIndicator"
+                app:tint="@color/text_primary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/headerTitle" />
+
+            <TextView
+                android:id="@+id/headerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="COMET NEWS"
+                android:textColor="@color/accent_blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/btnBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/btnMenu"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                app:tint="@color/text_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/headerTitle" />
+
+            <ImageView
+                android:id="@+id/btnSearch"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="16dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_search"
+                app:tint="@color/text_primary"
+                app:layout_constraintEnd_toStartOf="@+id/btnMenu"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/headerTitle" />
+
+            <!-- Search field that appears when search is clicked -->
+            <EditText
+                android:id="@+id/searchEditText"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_circle"
+                android:hint="Topic, Media or journalist"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:visibility="gone"
+                android:maxLines="1"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                app:layout_constraintTop_toBottomOf="@+id/headerTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -48,12 +114,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="All"
-                    android:textColor="@color/white"
+                    android:text="Discover"
+                    android:textColor="@color/tab_text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     app:checkedIconVisible="false"
-                    app:chipBackgroundColor="@color/chip_choice_background"
-                    app:chipStrokeColor="@color/chip_choice_stroke"
-                    app:chipStrokeWidth="1dp" />
+                    app:chipBackgroundColor="@android:color/transparent"
+                    app:chipStrokeWidth="0dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipNasa"
@@ -61,11 +128,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NASA"
-                    android:textColor="@color/white"
+                    android:textColor="@color/tab_text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     app:checkedIconVisible="false"
-                    app:chipBackgroundColor="@color/chip_choice_background"
-                    app:chipStrokeColor="@color/chip_choice_stroke"
-                    app:chipStrokeWidth="1dp" />
+                    app:chipBackgroundColor="@android:color/transparent"
+                    app:chipStrokeWidth="0dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipSpaceX"
@@ -73,11 +141,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SpaceX"
-                    android:textColor="@color/white"
+                    android:textColor="@color/tab_text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     app:checkedIconVisible="false"
-                    app:chipBackgroundColor="@color/chip_choice_background"
-                    app:chipStrokeColor="@color/chip_choice_stroke"
-                    app:chipStrokeWidth="1dp" />
+                    app:chipBackgroundColor="@android:color/transparent"
+                    app:chipStrokeWidth="0dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipBlogs"
@@ -85,11 +154,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Blogs"
-                    android:textColor="@color/white"
+                    android:textColor="@color/tab_text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     app:checkedIconVisible="false"
-                    app:chipBackgroundColor="@color/chip_choice_background"
-                    app:chipStrokeColor="@color/chip_choice_stroke"
-                    app:chipStrokeWidth="1dp" />
+                    app:chipBackgroundColor="@android:color/transparent"
+                    app:chipStrokeWidth="0dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipReports"
@@ -97,11 +167,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Reports"
-                    android:textColor="@color/white"
+                    android:textColor="@color/tab_text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     app:checkedIconVisible="false"
-                    app:chipBackgroundColor="@color/chip_choice_background"
-                    app:chipStrokeColor="@color/chip_choice_stroke"
-                    app:chipStrokeWidth="1dp" />
+                    app:chipBackgroundColor="@android:color/transparent"
+                    app:chipStrokeWidth="0dp" />
 
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
@@ -123,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingBottom="16dp"
+                android:paddingBottom="80dp"
                 tools:listitem="@layout/item_news" />
 
             <LinearLayout
@@ -147,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="No stories found"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -158,7 +229,7 @@
                     android:layout_marginTop="6dp"
                     android:gravity="center"
                     android:text="Try clearing search or picking another topic."
-                    android:textColor="#B5C5DE"
+                    android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -172,7 +243,7 @@
         android:layout_height="44dp"
         android:layout_gravity="center"
         android:visibility="gone"
-        app:indicatorColor="@color/comet_accent"
+        app:indicatorColor="@color/accent_blue"
         app:trackColor="@color/comet_secondary" />
 
     <TextView
@@ -182,7 +253,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:padding="20dp"
-        android:textColor="#FFB4AB"
+        android:textColor="#EF4444"
         android:textSize="14sp"
         android:visibility="gone" />
 
