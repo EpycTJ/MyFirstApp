@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="comet_primary">#0B132B</color>
+    <color name="comet_primary_variant">#1C2541</color>
+    <color name="comet_secondary">#3A506B</color>
+    <color name="comet_accent">#5BC0BE</color>
 </resources>
