@@ -3,10 +3,12 @@ package com.example.myapp
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.myapp.databinding.ItemNewsBinding
 
 class NewsAdapter(private var articles: List<NewsArticle> = emptyList()) :
@@ -23,12 +25,20 @@ class NewsAdapter(private var articles: List<NewsArticle> = emptyList()) :
         val article = articles[position]
         with(holder.binding) {
             newsTitleTextView.text = article.title
-            newsSummaryTextView.text = article.summary
             newsSiteTextView.text = article.newsSite
             newsDateTextView.text = formatPublishedDate(article.publishedAt)
 
+            // Make the summary text view gone if it still exists in bindings to prevent errors
+            newsSummaryTextView.visibility = View.GONE
+
             newsImageView.load(article.imageUrl) {
                 crossfade(true)
+            }
+
+            // Generate a simple site icon (or load logo) - using the image for now or clear it
+            siteIcon.load(article.imageUrl) {
+                crossfade(true)
+                transformations(CircleCropTransformation())
             }
 
             root.setOnClickListener {

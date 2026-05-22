@@ -1,10 +1,13 @@
 package com.example.myapp
 
 import android.os.Bundle
-import android.view.Menu
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,10 +37,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
         setupRecyclerView()
         setupChips()
         setupRefreshColors()
+        setupSearch()
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshNews()
@@ -84,8 +87,63 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRefreshColors() {
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.comet_accent)
-        binding.swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.comet_secondary)
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.accent_blue)
+        binding.swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.bg_light)
+    }
+
+    private fun setupSearch() {
+        binding.btnSearch.setOnClickListener {
+            if (binding.searchEditText.visibility == View.VISIBLE) {
+                binding.searchEditText.visibility = View.GONE
+                // Hide keyboard
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+                // Clear search if empty
+                if (binding.searchEditText.text.isNullOrBlank() && searchQuery != null) {
+                    searchQuery = null
+                    refreshNews()
+                }
+            } else {
+                binding.searchEditText.visibility = View.VISIBLE
+                binding.searchEditText.requestFocus()
+                // Show keyboard
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
+            }
+        }
+
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    delay(500)
+                    val newQuery = if (s.isNullOrBlank()) null else s.toString()
+                    if (searchQuery != newQuery) {
+                        searchQuery = newQuery
+                        refreshNews()
+                    }
+                }
+            }
+        })
+
+        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                actionId == EditorInfo.IME_ACTION_DONE ||
+                event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER) {
+
+                // Hide keyboard
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(v.windowToken, 0)
+
+                searchQuery = if (v.text.isNullOrBlank()) null else v.text.toString()
+                refreshNews()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun refreshNews() {
@@ -147,31 +205,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as SearchView
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchQuery = query
-                refreshNews()
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                searchJob?.cancel()
-                searchJob = lifecycleScope.launch {
-                    delay(500)
-                    searchQuery = if (newText.isNullOrBlank()) null else newText
-                    refreshNews()
-                }
-                return true
-            }
-        })
-
-        return true
     }
 }

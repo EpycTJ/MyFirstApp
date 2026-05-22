@@ -4,27 +4,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="10dp"
+    android:layout_height="380dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="12dp"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/comet_primary_variant"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="2dp"
-    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Comet.Card"
-    app:strokeColor="#3E5772"
-    app:strokeWidth="1dp">
+    app:cardCornerRadius="32dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/newsImageView"
             android:layout_width="0dp"
-            android:layout_height="208dp"
+            android:layout_height="0dp"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,82 +33,101 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/gradient_overlay"
-            app:layout_constraintBottom_toBottomOf="@id/newsImageView"
-            app:layout_constraintEnd_toEndOf="@id/newsImageView"
-            app:layout_constraintStart_toStartOf="@id/newsImageView"
-            app:layout_constraintTop_toTopOf="@id/newsImageView" />
-
-        <TextView
-            android:id="@+id/newsSiteTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/bg_badge"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/shareButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_icon_button"
+            android:contentDescription="Share article"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_menu_share"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="NASA" />
+            app:tint="@color/white" />
+
+        <!-- We'll merge Summary with Title for the UI approach,
+             the original UI has just title, site, and read time. -->
 
         <TextView
             android:id="@+id/newsTitleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="sans-serif-medium"
-            android:lineSpacingExtra="2dp"
+            android:lineSpacingExtra="4dp"
             android:textColor="@color/white"
-            android:textSize="19sp"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/newsSiteTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newsImageView"
-            tools:text="NASA Announces New Mission to Mars" />
+            tools:text="Social Security Is Rethinking How It Runs Customer Service After Covid" />
+
+        <ImageView
+            android:id="@+id/siteIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_circle"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/newsSummaryTextView"
-            android:layout_width="0dp"
+            android:id="@+id/newsSiteTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:textColor="#C7D5EA"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newsTitleTextView"
-            tools:text="A comprehensive summary of the latest space exploration endeavors..." />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/siteIcon"
+            app:layout_constraintStart_toEndOf="@+id/siteIcon"
+            app:layout_constraintTop_toTopOf="@+id/siteIcon"
+            tools:text="USA TODAY" />
+
+        <TextView
+            android:id="@+id/dotSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="•"
+            android:textColor="#B3FFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/siteIcon"
+            app:layout_constraintStart_toEndOf="@+id/newsSiteTextView"
+            app:layout_constraintTop_toTopOf="@+id/siteIcon" />
 
         <TextView
             android:id="@+id/newsDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textColor="@color/comet_accent"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newsSummaryTextView"
-            tools:text="2 hours ago" />
+            android:layout_marginStart="8dp"
+            android:textColor="#E0E0E0"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/siteIcon"
+            app:layout_constraintStart_toEndOf="@+id/dotSeparator"
+            app:layout_constraintTop_toTopOf="@+id/siteIcon"
+            tools:text="4h ago" />
 
-        <ImageButton
-            android:id="@+id/shareButton"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_marginEnd="12dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Share article"
-            android:padding="8dp"
-            android:src="@android:drawable/ic_menu_share"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newsSummaryTextView"
-            app:tint="@color/comet_accent" />
+        <!-- Hide original summary so adapter binding doesn't break,
+             or just make it gone. -->
+        <TextView
+            android:id="@+id/newsSummaryTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
