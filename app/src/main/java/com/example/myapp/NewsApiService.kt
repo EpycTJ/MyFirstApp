@@ -7,9 +7,26 @@ import retrofit2.http.Query
 
 interface NewsApiService {
     @GET("v4/articles/")
-    suspend fun getLatestNews(
+    suspend fun getArticles(
         @Query("limit") limit: Int = 20,
-        @Query("offset") offset: Int = 0
+        @Query("offset") offset: Int = 0,
+        @Query("search") search: String? = null,
+        @Query("news_site") newsSite: String? = null,
+        @Query("ordering") ordering: String? = "-published_at"
+    ): NewsResponse
+
+    @GET("v4/blogs/")
+    suspend fun getBlogs(
+        @Query("limit") limit: Int = 20,
+        @Query("offset") offset: Int = 0,
+        @Query("search") search: String? = null
+    ): NewsResponse
+
+    @GET("v4/reports/")
+    suspend fun getReports(
+        @Query("limit") limit: Int = 20,
+        @Query("offset") offset: Int = 0,
+        @Query("search") search: String? = null
     ): NewsResponse
 
     companion object {

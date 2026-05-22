@@ -8,32 +8,60 @@
     android:layout_marginHorizontal="16dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="6dp">
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/comet_primary_variant"
+    app:strokeColor="@color/comet_secondary"
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/newsImageView"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/gradient_overlay"
+            app:layout_constraintBottom_toBottomOf="@id/newsImageView"
+            app:layout_constraintEnd_toEndOf="@id/newsImageView"
+            app:layout_constraintStart_toStartOf="@id/newsImageView"
+            app:layout_constraintTop_toTopOf="@id/newsImageView" />
+
+        <TextView
+            android:id="@+id/newsSiteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_badge"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="NASA" />
+
         <TextView
             android:id="@+id/newsTitleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
-            android:textSize="20sp"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"
+            android:lineSpacingMultiplier="1.2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/newsImageView"
@@ -43,27 +71,39 @@
             android:id="@+id/newsSummaryTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
-            android:textSize="15sp"
-            android:textColor="?android:attr/textColorSecondary"
-            android:lineSpacingExtra="4dp"
+            android:textSize="14sp"
+            android:textColor="#CCCCCC"
+            android:maxLines="3"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/newsTitleTextView"
             tools:text="A comprehensive summary of the latest space exploration endeavors..." />
 
         <TextView
-            android:id="@+id/newsSiteTextView"
-            android:layout_width="0dp"
+            android:id="@+id/newsDateTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="13sp"
+            android:layout_margin="16dp"
+            android:textSize="12sp"
             android:textColor="@color/comet_accent"
-            android:fontFamily="sans-serif-black"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/newsSummaryTextView"
-            tools:text="NASA" />
+            tools:text="2 hours ago" />
+
+        <ImageButton
+            android:id="@+id/shareButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_share"
+            app:tint="@color/comet_accent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/newsSummaryTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
