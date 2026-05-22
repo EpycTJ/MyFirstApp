@@ -18,6 +18,10 @@
         android:theme="@style/Theme.Comet">
 
         <activity
+            android:name=".ArticleDetailActivity"
+            android:theme="@style/Theme.Comet" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

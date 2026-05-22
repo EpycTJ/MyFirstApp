@@ -42,8 +42,12 @@ class NewsAdapter(private var articles: List<NewsArticle> = emptyList()) :
             }
 
             root.setOnClickListener {
-                val customTabsIntent = CustomTabsIntent.Builder().build()
-                customTabsIntent.launchUrl(holder.itemView.context, Uri.parse(article.url))
+                val intent = Intent(holder.itemView.context, ArticleDetailActivity::class.java)
+                intent.putExtra("EXTRA_URL", article.url)
+                intent.putExtra("EXTRA_IMAGE_URL", article.imageUrl)
+                intent.putExtra("EXTRA_TITLE", article.title)
+                holder.itemView.context.startActivity(intent)
+
             }
 
             shareButton.setOnClickListener {
