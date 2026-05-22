@@ -31,18 +31,22 @@ class NewsAdapter(private var articles: List<NewsArticle> = emptyList()) :
 
             newsImageView.load(article.imageUrl) {
                 crossfade(true)
+                placeholder(R.drawable.ic_launcher_background)
+                error(R.drawable.ic_launcher_background)
             }
 
             // Generate a simple site icon (or load logo) - using the image for now or clear it
             siteIcon.load(article.imageUrl) {
                 crossfade(true)
+                placeholder(R.drawable.ic_launcher_foreground)
+                error(R.drawable.ic_launcher_foreground)
                 transformations(CircleCropTransformation())
             }
 
             root.setOnClickListener {
                 val intent = Intent(holder.itemView.context, ArticleDetailActivity::class.java).apply {
                     putExtra("ARTICLE_URL", article.url)
-                    putExtra("IMAGE_URL", article.imageUrl)
+                    putExtra("IMAGE_URL", article.imageUrl ?: "")
                     putExtra("ARTICLE_TITLE", article.title)
                 }
                 holder.itemView.context.startActivity(intent)
