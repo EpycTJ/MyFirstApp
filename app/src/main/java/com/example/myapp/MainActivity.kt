@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         setupRecyclerView()
         setupChips()
+        setupRefreshColors()
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshNews()
@@ -82,6 +83,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupRefreshColors() {
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.comet_accent)
+        binding.swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.comet_secondary)
+    }
+
     private fun refreshNews() {
         currentOffset = 0
         allArticles.clear()
@@ -94,8 +100,10 @@ class MainActivity : AppCompatActivity() {
 
         if (!isLoadMore) {
             binding.swipeRefreshLayout.isRefreshing = true
+            binding.mainProgress.visibility = View.VISIBLE
         }
         binding.errorTextView.visibility = View.GONE
+        binding.emptyStateLayout.visibility = View.GONE
 
         lifecycleScope.launch {
             try {
@@ -110,6 +118,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 binding.swipeRefreshLayout.isRefreshing = false
+                binding.mainProgress.visibility = View.GONE
                 binding.recyclerView.visibility = View.VISIBLE
 
                 if (isLoadMore) {
@@ -122,9 +131,15 @@ class MainActivity : AppCompatActivity() {
                 currentOffset += pageSize
                 isLoading = false
 
+                if (allArticles.isEmpty()) {
+                    binding.recyclerView.visibility = View.GONE
+                    binding.emptyStateLayout.visibility = View.VISIBLE
+                }
+
             } catch (e: Exception) {
                 isLoading = false
                 binding.swipeRefreshLayout.isRefreshing = false
+                binding.mainProgress.visibility = View.GONE
                 if (!isLoadMore) {
                     binding.recyclerView.visibility = View.GONE
                     binding.errorTextView.visibility = View.VISIBLE
