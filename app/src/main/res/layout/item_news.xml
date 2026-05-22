@@ -13,12 +13,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/newsImageView"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,44 +25,47 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
-        <TextView
-            android:id="@+id/newsTitleTextView"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:textSize="20sp"
-            android:textColor="?android:attr/textColorPrimary"
-            android:fontFamily="sans-serif-medium"
+            android:orientation="vertical"
+            android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newsImageView"
-            tools:text="NASA Announces New Mission to Mars" />
+            app:layout_constraintTop_toBottomOf="@id/newsImageView">
 
-        <TextView
-            android:id="@+id/newsSummaryTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="15sp"
-            android:textColor="?android:attr/textColorSecondary"
-            android:lineSpacingExtra="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newsTitleTextView"
-            tools:text="A comprehensive summary of the latest space exploration endeavors..." />
+            <TextView
+                android:id="@+id/newsTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary"
+                android:fontFamily="sans-serif-medium"
+                tools:text="NASA Announces New Mission to Mars" />
 
-        <TextView
-            android:id="@+id/newsSiteTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="13sp"
-            android:textColor="@color/comet_accent"
-            android:fontFamily="sans-serif-black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newsSummaryTextView"
-            tools:text="NASA" />
+            <TextView
+                android:id="@+id/newsSummaryTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="15sp"
+                android:textColor="?android:attr/textColorSecondary"
+                android:lineSpacingExtra="4dp"
+                android:maxLines="3"
+                android:ellipsize="end"
+                tools:text="A comprehensive summary of the latest space exploration endeavors..." />
+
+            <TextView
+                android:id="@+id/newsSiteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="13sp"
+                android:textColor="@color/comet_accent"
+                android:fontFamily="sans-serif-black"
+                tools:text="NASA" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
