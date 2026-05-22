@@ -1,12 +1,7 @@
 package com.example.myapp
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -92,57 +87,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSearch() {
-        binding.btnSearch.setOnClickListener {
-            if (binding.searchEditText.visibility == View.VISIBLE) {
-                binding.searchEditText.visibility = View.GONE
-                // Hide keyboard
-                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
-                // Clear search if empty
-                if (binding.searchEditText.text.isNullOrBlank() && searchQuery != null) {
-                    searchQuery = null
-                    refreshNews()
-                }
-            } else {
-                binding.searchEditText.visibility = View.VISIBLE
-                binding.searchEditText.requestFocus()
-                // Show keyboard
-                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
-            }
-        }
+        binding.searchView.setupWithSearchBar(binding.searchBar)
 
-        binding.searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                searchJob?.cancel()
-                searchJob = lifecycleScope.launch {
-                    delay(500)
-                    val newQuery = if (s.isNullOrBlank()) null else s.toString()
-                    if (searchQuery != newQuery) {
-                        searchQuery = newQuery
-                        refreshNews()
-                    }
-                }
-            }
-        })
-
-        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
-                actionId == EditorInfo.IME_ACTION_DONE ||
-                event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER) {
-
-                // Hide keyboard
-                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(v.windowToken, 0)
-
-                searchQuery = if (v.text.isNullOrBlank()) null else v.text.toString()
-                refreshNews()
-                true
-            } else {
-                false
-            }
+        binding.searchView.editText.setOnEditorActionListener { v, _, _ ->
+            val query = v.text.toString()
+            binding.searchBar.setText(query)
+            binding.searchView.hide()
+            searchQuery = query.ifBlank { null }
+            refreshNews()
+            false
         }
     }
 
