@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: NewsAdapter
     private val apiService = NewsApiService.create()
 
-    private var currentTopic = "All"
+    private var selectedTopics: MutableSet<String> = mutableSetOf()
     private var searchQuery: String? = null
     private var isLoading = false
     private var currentOffset = 0
@@ -70,13 +70,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupChips() {
         binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
-            val checkedId = checkedIds.firstOrNull() ?: return@setOnCheckedStateChangeListener
-            currentTopic = when (checkedId) {
-                R.id.chipNasa -> "NASA"
-                R.id.chipSpaceX -> "SpaceX"
-                R.id.chipBlogs -> "Blogs"
-                R.id.chipReports -> "Reports"
-                else -> "All"
+            selectedTopics.clear()
+            for (id in checkedIds) {
+                when (id) {
+                    R.id.chipNasa -> selectedTopics.add("NASA")
+                    R.id.chipSpaceX -> selectedTopics.add("SpaceX")
+                    R.id.chipEsa -> selectedTopics.add("ESA")
+                    R.id.chipSpaceNews -> selectedTopics.add("SpaceNews")
+                    R.id.chipBlueOrigin -> selectedTopics.add("Blue Origin")
+                    R.id.chipBoeing -> selectedTopics.add("Boeing")
+                }
             }
             refreshNews()
         }
@@ -100,13 +103,12 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    when (currentTopic) {
-                        "Blogs" -> apiService.getBlogs(limit = pageSize, offset = currentOffset, search = searchQuery)
-                        "Reports" -> apiService.getReports(limit = pageSize, offset = currentOffset, search = searchQuery)
-                        "NASA" -> apiService.getArticles(limit = pageSize, offset = currentOffset, search = searchQuery, newsSite = "NASA")
-                        "SpaceX" -> apiService.getArticles(limit = pageSize, offset = currentOffset, search = searchQuery, newsSite = "SpaceX")
-                        else -> apiService.getArticles(limit = pageSize, offset = currentOffset, search = searchQuery)
+                    val newsSiteParam = if (selectedTopics.isNotEmpty()) {
+                        selectedTopics.joinToString(",")
+                    } else {
+                        null
                     }
+                    apiService.getArticles(limit = pageSize, offset = currentOffset, search = searchQuery, newsSite = newsSiteParam)
                 }
 
                 binding.swipeRefreshLayout.isRefreshing = false

@@ -33,53 +33,65 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="16dp"
-                app:singleLine="true"
-                app:singleSelection="true"
-                app:selectionRequired="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipAll"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="All"
-                    android:checked="true"
-                    app:chipBackgroundColor="@color/comet_secondary"
-                    android:textColor="@color/white" />
+                app:singleLine="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipNasa"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NASA"
+                    android:checkable="true"
                     app:chipBackgroundColor="@color/comet_secondary"
                     android:textColor="@color/white" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipSpaceX"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SpaceX"
+                    android:checkable="true"
                     app:chipBackgroundColor="@color/comet_secondary"
                     android:textColor="@color/white" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipBlogs"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:id="@+id/chipEsa"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Blogs"
+                    android:text="ESA"
+                    android:checkable="true"
                     app:chipBackgroundColor="@color/comet_secondary"
                     android:textColor="@color/white" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipReports"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:id="@+id/chipSpaceNews"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reports"
+                    android:text="SpaceNews"
+                    android:checkable="true"
+                    app:chipBackgroundColor="@color/comet_secondary"
+                    android:textColor="@color/white" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipBlueOrigin"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blue Origin"
+                    android:checkable="true"
+                    app:chipBackgroundColor="@color/comet_secondary"
+                    android:textColor="@color/white" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipBoeing"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Boeing"
+                    android:checkable="true"
                     app:chipBackgroundColor="@color/comet_secondary"
                     android:textColor="@color/white" />
 
