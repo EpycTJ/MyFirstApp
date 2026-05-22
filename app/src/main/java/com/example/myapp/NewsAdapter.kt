@@ -1,11 +1,9 @@
 package com.example.myapp
 
 import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -28,8 +26,8 @@ class NewsAdapter(private var articles: List<NewsArticle> = emptyList()) :
             newsSiteTextView.text = article.newsSite
             newsDateTextView.text = formatPublishedDate(article.publishedAt)
 
-            // Make the summary text view gone if it still exists in bindings to prevent errors
-            newsSummaryTextView.visibility = View.GONE
+            newsSummaryTextView.text = article.summary
+            newsSummaryTextView.visibility = View.VISIBLE
 
             newsImageView.load(article.imageUrl) {
                 crossfade(true)
@@ -42,8 +40,12 @@ class NewsAdapter(private var articles: List<NewsArticle> = emptyList()) :
             }
 
             root.setOnClickListener {
-                val customTabsIntent = CustomTabsIntent.Builder().build()
-                customTabsIntent.launchUrl(holder.itemView.context, Uri.parse(article.url))
+                val intent = Intent(holder.itemView.context, ArticleDetailActivity::class.java).apply {
+                    putExtra("ARTICLE_URL", article.url)
+                    putExtra("IMAGE_URL", article.imageUrl)
+                    putExtra("ARTICLE_TITLE", article.title)
+                }
+                holder.itemView.context.startActivity(intent)
             }
 
             shareButton.setOnClickListener {

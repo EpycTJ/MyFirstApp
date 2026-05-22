@@ -26,6 +26,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ArticleDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Comet" />
+
     </application>
 
 </manifest>

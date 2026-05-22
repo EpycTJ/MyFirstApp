@@ -4,90 +4,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="380dp"
+    android:layout_height="wrap_content"
     android:layout_marginHorizontal="20dp"
     android:layout_marginTop="12dp"
     android:layout_marginBottom="12dp"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/comet_primary_variant"
-    app:cardCornerRadius="32dp"
+    app:cardCornerRadius="24dp"
     app:cardElevation="0dp"
     app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/newsImageView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Comet.ImageTopRounded"
             tools:src="@tools:sample/backgrounds/scenic" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/gradient_overlay"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/shareButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/bg_icon_button"
             android:contentDescription="Share article"
             android:padding="8dp"
-            android:src="@android:drawable/ic_menu_share"
+            android:src="@drawable/ic_share"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
-
-        <!-- We'll merge Summary with Title for the UI approach,
-             the original UI has just title, site, and read time. -->
-
-        <TextView
-            android:id="@+id/newsTitleTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="sans-serif-medium"
-            android:lineSpacingExtra="4dp"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/newsSiteTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Social Security Is Rethinking How It Runs Customer Service After Covid" />
+            app:tint="@color/text_primary" />
 
         <ImageView
             android:id="@+id/siteIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg_circle"
             android:src="@drawable/ic_launcher_foreground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newsImageView" />
 
         <TextView
             android:id="@+id/newsSiteTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textColor="@color/white"
+            android:textColor="@color/accent_blue"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/siteIcon"
@@ -101,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="•"
-            android:textColor="#B3FFFFFF"
+            android:textColor="@color/text_secondary"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/siteIcon"
             app:layout_constraintStart_toEndOf="@+id/newsSiteTextView"
@@ -112,22 +85,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textColor="#E0E0E0"
+            android:textColor="@color/text_secondary"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@+id/siteIcon"
             app:layout_constraintStart_toEndOf="@+id/dotSeparator"
             app:layout_constraintTop_toTopOf="@+id/siteIcon"
             tools:text="4h ago" />
 
-        <!-- Hide original summary so adapter binding doesn't break,
-             or just make it gone. -->
+        <TextView
+            android:id="@+id/newsTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:lineSpacingExtra="4dp"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/siteIcon"
+            tools:text="Social Security Is Rethinking How It Runs Customer Service After Covid" />
+
         <TextView
             android:id="@+id/newsSummaryTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="4dp"
+            android:maxLines="3"
+            android:textColor="@color/text_secondary"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/newsTitleTextView"
+            tools:text="Here is a summary that explains what is going on with the Social Security administration after covid, detailing some facts and providing useful featurefull information." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
