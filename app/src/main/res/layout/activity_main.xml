@@ -12,21 +12,26 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/comet_primary">
+        android:background="@android:color/transparent"
+        android:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:subtitle="Daily mission brief"
+            app:subtitleTextColor="#99FFFFFF"
             app:title="Comet News"
-            app:titleTextColor="@color/white"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            app:titleTextColor="@color/white" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:paddingBottom="8dp">
+            android:clipToPadding="false"
+            android:paddingBottom="12dp"
+            android:scrollbars="none">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"
@@ -42,10 +47,13 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="All"
                     android:checked="true"
-                    app:chipBackgroundColor="@color/comet_secondary"
-                    android:textColor="@color/white" />
+                    android:text="All"
+                    android:textColor="@color/white"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_choice_background"
+                    app:chipStrokeColor="@color/chip_choice_stroke"
+                    app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipNasa"
@@ -53,8 +61,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NASA"
-                    app:chipBackgroundColor="@color/comet_secondary"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_choice_background"
+                    app:chipStrokeColor="@color/chip_choice_stroke"
+                    app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipSpaceX"
@@ -62,8 +73,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SpaceX"
-                    app:chipBackgroundColor="@color/comet_secondary"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_choice_background"
+                    app:chipStrokeColor="@color/chip_choice_stroke"
+                    app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipBlogs"
@@ -71,8 +85,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Blogs"
-                    app:chipBackgroundColor="@color/comet_secondary"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_choice_background"
+                    app:chipStrokeColor="@color/chip_choice_stroke"
+                    app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipReports"
@@ -80,8 +97,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Reports"
-                    app:chipBackgroundColor="@color/comet_secondary"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_choice_background"
+                    app:chipStrokeColor="@color/chip_choice_stroke"
+                    app:chipStrokeWidth="1dp" />
 
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
@@ -94,22 +114,76 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="16dp"
-            tools:listitem="@layout/item_news" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp"
+                tools:listitem="@layout/item_news" />
+
+            <LinearLayout
+                android:id="@+id/emptyStateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🛰️"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/emptyTitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="No stories found"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/emptySubtitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:text="Try clearing search or picking another topic."
+                    android:textColor="#B5C5DE"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </FrameLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/mainProgress"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:indicatorColor="@color/comet_accent"
+        app:trackColor="@color/comet_secondary" />
 
     <TextView
         android:id="@+id/errorTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"
-        android:textColor="@android:color/holo_red_dark" />
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="#FFB4AB"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

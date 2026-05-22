@@ -8,8 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="comet_primary">#0B132B</color>
-    <color name="comet_primary_variant">#1C2541</color>
-    <color name="comet_secondary">#3A506B</color>
-    <color name="comet_accent">#5BC0BE</color>
+    <color name="comet_primary">#081124</color>
+    <color name="comet_primary_variant">#13203A</color>
+    <color name="comet_secondary">#2A3C58</color>
+    <color name="comet_accent">#4ECDC4</color>
+    <color name="chip_choice_background">#223650</color>
+    <color name="chip_choice_stroke">#4A6A8E</color>
 </resources>
